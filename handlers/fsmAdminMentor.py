@@ -4,6 +4,7 @@ from aiogram.dispatcher.filters import Text
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from config import bot, ADMINS
 from keyboards.client_kb import submit_markup, cancel_markup
+from database.bot_db import sql_command_insert
 
 class FSMAdmin(StatesGroup):
     mentor_id = State()
@@ -29,8 +30,6 @@ async def load_mentor_id(message: types.Message, state: FSMContext):
 
 async def load_name(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
-        data['id'] = message.from_user.id
-        data['username'] = f"@{message.from_user.username}"
         data['name'] = message.text
     await FSMAdmin.next()
     await message.answer("Направление")
@@ -65,7 +64,7 @@ async def load_group(message: types.Message, state: FSMContext):
 
 async def submit(message: types.Message, state: FSMContext):
     if message.text.lower() == 'да':
-        # Запись в БД
+        await sql_command_insert(state)
         await state.finish()
         await message.answer("Ответ записан")
     elif message.text.lower() == 'нет':
