@@ -25,7 +25,7 @@ async def scheduler():
 
     while True:
         await aioschedule.run_pending()
-        await asyncio.sleep(2)
+        await asyncio.sleep(4)
 
 
 def register_handlers_notification(dp: Dispatcher):
