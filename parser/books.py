@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup as BS
 
-
 URL = 'https://aldebaran.ru/genre/priklucheniya/klassika-prikluchencheskoy-literatury/'
 
 HEADERS = {
@@ -37,4 +36,3 @@ def parser():
         return books
     else:
         raise Exception('Error in parser')
-
