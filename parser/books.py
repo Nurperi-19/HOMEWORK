@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup as BS
-from pprint import pprint
+
 
 URL = 'https://aldebaran.ru/genre/priklucheniya/klassika-prikluchencheskoy-literatury/'
 
@@ -16,7 +16,7 @@ def get_html(url, params=''):
 def get_data(html):
     soup = BS(html, 'html.parser')
     items = soup.find_all('div', class_='book_info clearfix')
-    books =[]
+    books = []
     for i in items:
         book = {
             'title': i.find('p', class_='booktitle').string,
@@ -37,3 +37,4 @@ def parser():
         return books
     else:
         raise Exception('Error in parser')
+
